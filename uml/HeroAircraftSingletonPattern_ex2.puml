@@ -1,0 +1,19 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class Game
+
+class HeroAircraft{
+    - {static} HeroAircraft heroAircraft
+    - HeroAircraft(int locationX, int locationY, int speedX, int speedY, int hp,
+    int direction, int shootNum, int power, ShootStrategy shootStrategy)
+    + {static}HeroAircraft getHeroAircraft()
+    + void forward()
+    + void increaseHp(int increase)
+}
+
+HeroAircraft <-- Game
+HeroAircraft <-- HeroAircraft::heroAircraft
+
+
+@enduml

@@ -1,0 +1,69 @@
+@startuml
+class EliteEnemy
+
+class BossEnemy
+
+class BombPropFactory {
++ AbstractProp createProp(int locationX,
+int locationY,int speedX, int speedY)
+}
+
+abstract class AbstractPropFactory {
++ {abstract}AbstractProp createProp(int locationX,
+int locationY,int speedX, int speedY)
+}
+
+class FirePropFactory {
++ AbstractProp createProp(int locationX,
+int locationY,int speedX, int speedY)
+}
+
+abstract class AbstractProp {
++ <<Create>> AbstractProp(int locationX,
+int locationY,int speedX, int speedY)
++ void forward()
++ {abstract}void function(HeroAircraft heroAircraft)
+}
+
+class BloodPropFactory {
++ AbstractProp createProp(int locationX,
+int locationY,int speedX, int speedY)
+}
+
+class FireSupplyProp {
++ <<Create>> FireSupplyProp(int locationX,
+int locationY,int speedX, int speedY)
++ void function(HeroAircraft heroAircraft)
+}
+
+class BombSupplyProp {
+- List<Subscriber> subscriberList
++ <<Create>> BombSupplyProp(int locationX,
+int locationY,int speedX, int speedY)
++ void addSubscriber(Subscriber subscriber)
++ void removeSubscriber(Subscriber subscriber)
++ void notifyAllSubscribers()
++ void function(HeroAircraft heroAircraft)
+}
+
+class BloodSupplyProp {
++ <<Create>> BloodSupplyProp(int locationX,
+int locationY,int speedX, int speedY)
++ void function(HeroAircraft heroAircraft)
+}
+
+EliteEnemy ..> AbstractPropFactory
+EliteEnemy ..> AbstractProp
+BossEnemy ..> AbstractPropFactory
+BossEnemy ..> AbstractProp
+AbstractProp -[hidden]> AbstractPropFactory
+AbstractProp <|-- BloodSupplyProp
+AbstractProp <|-- BombSupplyProp
+AbstractProp <|-- FireSupplyProp
+AbstractPropFactory <|-- BloodPropFactory
+AbstractPropFactory <|-- BombPropFactory
+AbstractPropFactory <|-- FirePropFactory
+BloodPropFactory ..> BloodSupplyProp: <create>
+BombPropFactory ..> BombSupplyProp: <create>
+FirePropFactory ..>FireSupplyProp: <create>
+@enduml

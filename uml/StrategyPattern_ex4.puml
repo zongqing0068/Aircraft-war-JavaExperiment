@@ -1,0 +1,39 @@
+@startuml
+class DirectShoot {
++ List<BaseBullet> doShoot(AbstractAircraft aircraft)
+}
+
+abstract class AbstractAircraft {
+# int maxHp
+# int hp
+# int direction
+# int shootNum
+# int power
+# ShootStrategy shootStrategy
++ <<Create>> AbstractAircraft(int locationX, int locationY, int speedX, int speedY, int hp)
++ <<Create>> AbstractAircraft(int locationX, int locationY, int speedX, int speedY, int hp,
+int direction, int shootNum, int power, ShootStrategy shootStrategy)
++ void decreaseHp(int decrease)
++ void setHp(int Hp)
++ int getHp()
++ int getDirection()
++ void setShootNum(int shootNum)
++ int getShootNum()
++ int getPower()
++ void setShootStrategy(ShootStrategy shootStrategy)
++ List<BaseBullet> executeShoot()
+}
+
+interface ShootStrategy {
++ {abstract} List<BaseBullet> doShoot(AbstractAircraft aircraft)
+}
+
+class ScatteringShoot {
++ List<BaseBullet> doShoot(AbstractAircraft aircraft)
+}
+
+ShootStrategy <|.. DirectShoot
+ShootStrategy <|.. ScatteringShoot
+ShootStrategy <--left--o AbstractAircraft
+
+@enduml

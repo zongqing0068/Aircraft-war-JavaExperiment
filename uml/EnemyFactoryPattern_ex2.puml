@@ -1,0 +1,69 @@
+@startuml
+class Game
+
+class MobEnemyFactory {
+- {static} int speedY
+- {static} int hp
++ AbstractEnemyAircraft createEnemy()
++ {static} void changeAttribute(double diffRate)
+}
+
+class BossEnemy {
++ <<Create>> BossEnemy(int locationX, int locationY, int speedX, int speedY,
+int hp, int direction, int shootNum, int power, ShootStrategy shootStrategy)
++ AbstractProp produceProp()
+}
+
+class EliteEnemyFactory {
+- {static} int speedY
+- {static} int hp
++ AbstractEnemyAircraft createEnemy()
++ {static} void changeAttribute(double diffRate)
+}
+
+abstract class AbstractEnemyAircraft {
++ <<Create>> AbstractEnemyAircraft(int locationX, int locationY, int speedX, int speedY,
+ int hp, int direction, int shootNum, int power, ShootStrategy shootStrategy)
++ <<Create>> AbstractEnemyAircraft(int locationX,
+int locationY, int speedX, int speedY, int hp)
++ void forward()
++ {abstract}AbstractProp produceProp()
++ void setLocation(int locationX, int locationY)
+}
+
+class BossEnemyFactory {
++ AbstractEnemyAircraft createEnemy()
+}
+
+class EliteEnemy {
++ <<Create>> EliteEnemy(int locationX, int locationY, int speedX, int speedY,
+int hp, int direction, int shootNum, int power, ShootStrategy shootStrategy)
++ AbstractProp produceProp()
++ void update()
+}
+
+class MobEnemy {
++ <<Create>> MobEnemy(int locationX,
+int locationY, int speedX, int speedY, int hp)
++ AbstractProp produceProp()
++ void update()
+}
+
+abstract class AbstractEnemyFactory {
++ {abstract}AbstractEnemyAircraft createEnemy()
+}
+
+
+Game ..> AbstractEnemyAircraft
+Game ..> AbstractEnemyFactory
+AbstractEnemyAircraft -[hidden]> AbstractEnemyFactory
+AbstractEnemyAircraft <|-- MobEnemy
+AbstractEnemyAircraft <|-- EliteEnemy
+AbstractEnemyAircraft <|-- BossEnemy
+AbstractEnemyFactory <|-- MobEnemyFactory
+AbstractEnemyFactory <|-- EliteEnemyFactory
+AbstractEnemyFactory <|-- BossEnemyFactory
+MobEnemyFactory ..> MobEnemy: <create>
+EliteEnemyFactory ..> EliteEnemy: <create>
+BossEnemyFactory ..>BossEnemy: <create>
+@enduml

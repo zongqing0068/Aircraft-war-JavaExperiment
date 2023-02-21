@@ -1,0 +1,128 @@
+@startuml
+class EnemyBullet {
++ <<Create>> EnemyBullet(int,int,int,int,int)
++ void update()
+}
+class BossEnemy {
++ <<Create>> BossEnemy(int,int,int,int,int,int,int,int,ShootStrategy)
++ AbstractProp produceProp()
+}
+class HeroBullet {
++ <<Create>> HeroBullet(int,int,int,int,int)
+}
+abstract class AbstractProp {
++ <<Create>> AbstractProp(int,int,int,int)
++ void forward()
++ {abstract}void function(HeroAircraft)
+}
+interface Subscriber {
+~ void update()
+}
+class EliteEnemy {
++ <<Create>> EliteEnemy(int,int,int,int,int,int,int,int,ShootStrategy)
++ AbstractProp produceProp()
++ void update()
+}
+class BaseBullet {
+- int power
++ <<Create>> BaseBullet(int,int,int,int,int)
++ void forward()
++ int getPower()
+}
+class BombSupplyProp {
+- List<Subscriber> subscriberList
++ <<Create>> BombSupplyProp(int,int,int,int)
++ void addSubscriber(Subscriber)
++ void removeSubscriber(Subscriber)
++ void notifyAllSubscribers()
++ void function(HeroAircraft)
+}
+class HeroAircraft {
+- {static} HeroAircraft heroAircraft
+- <<Create>> HeroAircraft(int,int,int,int,int,int,int,int,ShootStrategy)
++ {static} HeroAircraft getHeroAircraft()
++ void increaseHp(int)
++ void forward()
+}
+class BloodSupplyProp {
++ <<Create>> BloodSupplyProp(int,int,int,int)
++ void function(HeroAircraft)
+}
+abstract class AbstractAircraft {
+# int maxHp
+# int hp
+# int direction
+# int shootNum
+# int power
+# ShootStrategy shootStrategy
++ <<Create>> AbstractAircraft(int,int,int,int,int)
++ <<Create>> AbstractAircraft(int,int,int,int,int,int,int,int,ShootStrategy)
++ void decreaseHp(int)
++ void setHp(int)
++ int getHp()
++ int getDirection()
++ void setShootNum(int)
++ int getShootNum()
++ int getPower()
++ void setShootStrategy(ShootStrategy)
++ List<BaseBullet> executeShoot()
+}
+abstract class AbstractEnemyAircraft {
++ <<Create>> AbstractEnemyAircraft(int,int,int,int,int,int,int,int,ShootStrategy)
++ <<Create>> AbstractEnemyAircraft(int,int,int,int,int)
++ void forward()
++ {abstract}AbstractProp produceProp()
++ void setLocation(int,int)
+}
+abstract class AbstractFlyingObject {
+# int locationX
+# int locationY
+# int speedX
+# int speedY
+# BufferedImage image
+# int width
+# int height
+# boolean isValid
++ <<Create>> AbstractFlyingObject()
++ <<Create>> AbstractFlyingObject(int,int,int,int)
++ void forward()
++ boolean crash(AbstractFlyingObject)
++ int getLocationX()
++ int getLocationY()
++ void setLocation(double,double)
++ int getSpeedX()
++ int getSpeedY()
++ BufferedImage getImage()
++ int getWidth()
++ int getHeight()
++ boolean notValid()
++ void vanish()
+}
+class FireSupplyProp {
++ <<Create>> FireSupplyProp(int,int,int,int)
++ void function(HeroAircraft)
+}
+class MobEnemy {
++ <<Create>> MobEnemy(int,int,int,int,int)
++ AbstractProp produceProp()
++ void update()
+}
+
+
+Subscriber <|.. EnemyBullet
+BaseBullet <|-- EnemyBullet
+AbstractEnemyAircraft <|-- BossEnemy
+BaseBullet <|-- HeroBullet
+AbstractFlyingObject <|-- AbstractProp
+Subscriber <|.. EliteEnemy
+AbstractEnemyAircraft <|-- EliteEnemy
+AbstractFlyingObject <|-- BaseBullet
+AbstractProp <|-- BombSupplyProp
+AbstractAircraft <|-- HeroAircraft
+AbstractProp <|-- BloodSupplyProp
+AbstractFlyingObject <|-- AbstractAircraft
+AbstractAircraft <|-- AbstractEnemyAircraft
+AbstractProp <|-- FireSupplyProp
+Subscriber <|.. MobEnemy
+AbstractEnemyAircraft <|-- MobEnemy
+@enduml

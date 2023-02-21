@@ -1,0 +1,38 @@
+@startuml
+class UserDaoImpl {
+- List<User> allUsers
++ <<Create>> UserDaoImpl()
++ List<User> getAllUsers()
++ void findByName(String userName)
++ void showRankingList()
++ void doAdd(User user)
++ void doDelet(String userName)
++ void writeIn()
+}
+class User {
+- String userName
+- int score
+- String time
++ <<Create>> User(String userName, int score, String time)
++ String getUserName()
++ void setUserName(String userName)
++ int getScore()
++ void setScore(int score)
++ String getTime()
++ void setTime(String time)
+}
+interface UserDao {
++ {abstract} void findByName(String userName)
++ {abstract} List<User> getAllUsers()
++ {abstract} void showRankingList()
++ {abstract} void doAdd(User user)
++ {abstract} void doDelet(String userName)
++ {abstract} void writeIn()
+}
+
+class Game
+
+Game .right.> UserDao
+UserDao <|.down. UserDaoImpl
+User <-right- UserDaoImpl
+@enduml

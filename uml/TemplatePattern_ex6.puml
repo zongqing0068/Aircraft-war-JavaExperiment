@@ -1,0 +1,78 @@
+@startuml
+
+class Main {
++ {static} int WINDOW_WIDTH
++ {static} int WINDOW_HEIGHT
+}
+
+abstract class AbstractGame {
++ {static} String difficulty
++ {static} int firePropNum
+# int timeInterval
+# int diffChangeDuration
+# HeroAircraft heroAircraft
+# List<AbstractEnemyAircraft> enemyAircrafts
+# List<BaseBullet> heroBullets
+# List<BaseBullet> enemyBullets
+# List<AbstractProp> props
+# AbstractEnemyFactory enemyFactory
+- {static} int score
+- int time
+# int enemyMaxNumber
+# double enemyRate
+# int cycleDuration
+# int cycleTime
+# int diffCycleTime
+# MusicThread bgmMusic
+# MusicThread bgmBossMusic
+# int bossScoreThreshold
+# boolean bossOnScreen
+# int bossNum
++ <<Create>> AbstractGame()
++ void action()
+- void timeCountAction()
+- void musicControlAction()
+# {abstract}void changeDiffAction()
+- void createMobAndEliteAction()
+# {abstract}void createBossAction()
+- void shootAction()
+- void newTimeAction()
+- void bulletsMoveAction()
+- void aircraftsMoveAction()
+- void propsMoveAction()
+- void crashCheckAction()
+- void postProcessAction()
+# {abstract}void paintBackground(Graphics g)
+- void gameOverCheckAction()
+}
+
+class EasyGame {
++ <<Create>> EasyGame()
+# void createBossAction()
+# void changeDiffAction()
+# void paintBackground(Graphics g)
+}
+
+class MediumGame {
+- double diffRate
++ <<Create>> MediumGame()
+# void createBossAction()
+# void changeDiffAction()
+# void paintBackground(Graphics g)
+}
+
+class HardGame {
+- double diffRate
++ <<Create>> HardGame()
+# void createBossAction()
+# void changeDiffAction()
+# void paintBackground(Graphics g)
+}
+
+Main ..>AbstractGame
+AbstractGame <|-- MediumGame
+AbstractGame <|-- HardGame
+AbstractGame <|-- EasyGame
+
+
+@enduml

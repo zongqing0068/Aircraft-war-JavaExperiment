@@ -1,0 +1,45 @@
+@startuml
+interface Subscriber {
++ {abstract} void update()
+}
+
+abstract class Game {
+}
+
+class EliteEnemy {
++ <<Create>> EliteEnemy(int locationX, int locationY, int speedX, int speedY,
+int hp,int direction, int shootNum, int power, ShootStrategy shootStrategy)
++ AbstractProp produceProp()
++ void update()
+}
+
+class MobEnemy {
++ <<Create>> MobEnemy(int locationX,
+int locationY, int speedX, int speedY, int hp)
++ AbstractProp produceProp()
++ void update()
+}
+
+class BombSupplyProp {
+- List<Subscriber> subscriberList
++ <<Create>> BombSupplyProp(int locationX,
+int locationY, int speedX, int speedY)
++ void addSubscriber(Subscriber subscriber)
++ void removeSubscriber(Subscriber subscriber)
++ void notifyAllSubscribers()
++ void function(HeroAircraft)
+}
+
+class EnemyBullet{
++ EnemyBullet(int locationX, int locationY,
+int speedX, int speedY, int power)
++ void update()
+}
+
+Game ..> BombSupplyProp
+BombSupplyProp o--> Subscriber
+Subscriber <|.. MobEnemy
+Subscriber <|.. EliteEnemy
+Subscriber <|.. EnemyBullet
+
+@enduml
